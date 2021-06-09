@@ -1,20 +1,25 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const Navi = () => {
     return (
         <div className="navi">
             <div>
-                <img src="./pics/wordgenlogo.png" alt="wordgen_logo" />
-                <span>wordGen</span>
-            </div>
-            <div>
-                <span>특징</span>
-                <span>솔루션</span>
-                <span>가격</span>
-            </div>
-            <div>
-                <span>로그인</span>
-                <span>회원가입</span>
+                <div>
+                    <Link to="/">
+                        <img src="./pics/wordgenlogo2.png" alt="wordgen_logo" />
+                        <span>wordGen</span>
+                    </Link>
+                </div>
+                <div>
+                    <Link to="/"><span className="on">특징</span></Link>
+                    <Link to="/solution"><span>솔루션</span></Link>
+                    <Link to="/price"><span>가격</span></Link>
+                </div>
+                <div>
+                    <Link to="/login"><span>로그인</span></Link>
+                    <Link to="/register"><span>회원가입</span></Link>
+                </div>
             </div>
         </div>
     )
