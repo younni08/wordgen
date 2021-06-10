@@ -1,27 +1,125 @@
-import React from "react";
+import React,{useState} from "react";
+import Mobileview from "./mobile_view"
 
 const Studio = () => {
+    const [type,setType] = useState("")
+    const [menu1,setMenu1] = useState(true)
+    const [menu2,setMenu2] = useState(false)
+    const [menu3,setMenu3] = useState(false)
+
+    const studioMenu = (e) => {
+        console.log(e.currentTarget.getAttribute("id"))
+        if(e.currentTarget.getAttribute("id")==="studio_menu1"){
+            document.getElementById("studio_menu2").className=""
+            document.getElementById("studio_menu3").className=""
+            document.getElementById("studio_menu1").className="on"
+        }
+        if(e.currentTarget.getAttribute("id")==="studio_menu2"){
+            document.getElementById("studio_menu1").className=""
+            document.getElementById("studio_menu3").className=""
+            document.getElementById("studio_menu2").className="on"
+        }
+        if(e.currentTarget.getAttribute("id")==="studio_menu3"){
+            document.getElementById("studio_menu1").className=""
+            document.getElementById("studio_menu2").className=""
+            document.getElementById("studio_menu3").className="on"
+        }
+    }
+
+    const tempType1 = () => {
+        document.getElementById("studio_type_wordcloud").className="studio_typebox"
+        document.getElementById("studio_type_vote").className="studio_typebox_on"
+        setType("vote")
+    }
+
+    const tempType2 = () => {
+        document.getElementById("studio_type_vote").className="studio_typebox"
+        document.getElementById("studio_type_wordcloud").className="studio_typebox_on"
+        setType("wordcloud")
+    }
+
     return (
         <div className="studio">
             <div>
                 <div className="studio_navi">
-                    <span>left</span>
-                    <span>right</span>
+                    <span>추가 메뉴</span>
+                    <span>생각 중</span>
                 </div>
                 <div className="studio_main">
                     <div className="studio_level1">
                         <div className="studio_mobile">
-                            <span>모바일 뷰</span>
-                            <div>
-
-                            </div>
+                            <Mobileview
+                                type={type}
+                            />
                         </div>
-                        <div className="studio_setting">
+                        <div className="studio_menu">
                             <div>
-                                <span>종류</span>
-                                <span className="on">수정</span>
-                                <span>추가 설정</span>
+                                <span id="studio_menu1" onClick={studioMenu} className="on">종류</span>
+                                <span id="studio_menu2" onClick={studioMenu}>설정</span>
+                                <span id="studio_menu3" onClick={studioMenu}>추가 설정</span>
                             </div>
+
+                            {/* studio menu 1 start */}
+                            <div className="studio_menubox" id="studio_menubox1">
+                                <div className="studio_menubox1">
+                                    <div className="studio_typebox" id="studio_type_vote" onClick={tempType1}>
+                                        <div>
+                                            <i className="xi-chart-bar xi-2x"></i>
+                                        </div>
+                                        <span>투표</span>
+                                    </div>
+                                    <div className="studio_typebox" id="studio_type_wordcloud" onClick={tempType2}>
+                                        <div>
+                                            <i className="xi-cloud-o xi-2x"></i>
+                                        </div>
+                                        <span>워드 클라우드</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
+                                            <i className="xi-file-o xi-2x"></i>
+                                        </div>
+                                        <span>추가 예정</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
+                                            <i className="xi-file-o xi-2x"></i>
+                                        </div>
+                                        <span>추가 예정</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
+                                            <i className="xi-file-o xi-2x"></i>
+                                        </div>
+                                        <span>추가 예정</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
+                                            <i className="xi-file-o xi-2x"></i>
+                                        </div>
+                                        <span>추가 예정</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
+                                            <i className="xi-file-o xi-2x"></i>
+                                        </div>
+                                        <span>추가 예정</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
+                                            <i className="xi-file-o xi-2x"></i>
+                                        </div>
+                                        <span>추가 예정</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
+                                            <i className="xi-file-o xi-2x"></i>
+                                        </div>
+                                        <span>추가 예정</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* studio menu 1 end */}
+
                         </div>
                     </div>
                 </div>

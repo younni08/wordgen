@@ -65,12 +65,16 @@ const Login = () => {
             }
         }
         let res = await axios.post(url,params,config)
-        if(res.data==="register"){
+        console.log(res.data)
+        if(res.data==="registered"){
             alert("회원가입되었습니다.")
             return setRedirect(true)
         }
         if(res.data==="fail"){
             return alert("잘못된 접근입니다.")
+        }
+        if(res.data==="id is too short"){
+            return alert("비밀번호가 너무 짧아요.")
         }
         if(res.data==="matching email"){
             return setRepeatemail(true)

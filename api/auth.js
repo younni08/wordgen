@@ -44,11 +44,10 @@ router.post("/register", async (req,res) => {
         if(req.body.id===undefined||req.body.pw===undefined||req.body.checkbox===undefined||req.body.type===undefined) return res.send("fail")
         let date = new Date();
         let ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress;
-        if(req.body.pw.length < 4) return res.send("id is too short")
+        if(req.body.pw.length < 8) return res.send("id is too short")
         if(req.body.checkbox===false) return res.send("checkbox false")
         const db = await client.connect();
-        let email = CryptoJS.AES.encrypt(req.body.id, "secret_salt5585").toString();
-        let checkRepeat = await db.query(`select user_email from users where user_email=$1;`,[email]);
+        let checkRepeat = await db.query(`select user_email from users where user_email=$1;`,[req.body.id]);
         if(checkRepeat.rows[0]!==undefined){
             await db.release();
             return res.send("matching email")
@@ -81,7 +80,7 @@ router.post("/register", async (req,res) => {
         
         await db.release();
         let t2 = new Date();
-        await db.query(`insert into users (user_pk,user_email,user_pw,register_date,policy1,salt,user_ip) values ($1,$2,$3,$4,$5,$6,$7)`,[user_pk,email,pw,date,req.body.checkbox,salt,ip]);
+        await db.query(`insert into users (user_pk,user_email,user_pw,register_date,policy1,salt,user_ip) values ($1,$2,$3,$4,$5,$6,$7)`,[user_pk,req.body.id,pw,date,req.body.checkbox,salt,ip]);
         console.log("register time Taken " + (t2.getTime()-t1.getTime()))
         return res.send("registered");
         // 이거 찾아야함 
@@ -95,11 +94,10 @@ router.post("/register", async (req,res) => {
 router.post("/login", async (req,res)=>{
     let t1 = new Date();
     try {
-        
+        console.log(req.body)
         if(req.body.id===undefined||req.body.id===null||req.body.pw===undefined||req.body.pw===null) return res.send("fail");
-        let email = CryptoJS.AES.encrypt(req.body.id, "secret_salt5585").toString();
         const db = await client.connect();
-        let result = await db.query("select user_pk,user_email,user_pw from users where user_email=$1",[req.body.email]);
+        let result = await db.query("select user_pk,user_email,user_pw from users where user_email=$1",[req.body.id]);
         if(result.rows[0]===undefined){await db.release(); return res.send("fail")}
         let comparePass = await bcrypt.compareSync(req.body.pw,result.rows[0].user_pw);
         if(comparePass !== true){await db.release(); return res.send("fail")}
@@ -111,7 +109,7 @@ router.post("/login", async (req,res)=>{
         let session = Math.floor(Math.random()*4398046511104)+".date"+date.setHours(date.getHours() + 4);
         
         // latest login date
-        await db.query(`update users set login_history=$1,session=$2 where user_id=$3`,[date,session,email]);
+        await db.query(`update users set last_login=$1,session=$2 where user_pk=$3`,[date,session,result.rows[0].user_pk]);
         await db.query(`insert into user_login_history (user_pk,date,ip_addr) values ($1,$2,$3)`,[result.rows[0].user_pk,date,ip])
 
         let temp_token = jwt.sign({user_pk:result.rows[0].user_pk},jwtConfig.key);
@@ -128,7 +126,7 @@ router.post("/login", async (req,res)=>{
         return res.send(data);
     } catch(err){
         console.log(err);
-        res.send("login denied")
+        res.send("fail")
     }
 })
 

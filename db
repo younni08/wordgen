@@ -17,3 +17,63 @@ create table users (
     salt varchar(100),
     user_ip inet
 )
+
+// etc/nginx/nginx.conf
+server {
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/wordgen.kr/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/wordgen.kr/privkey.pem;
+    ssl_session_timeout 5m;
+}
+
+// etc/nginx/sites-available/default
+server {
+        listen 443 ssl;
+        ssl_certificate /etc/letsencrypt/live/wordgen.kr/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/wordgen.kr/privkey.pem;
+        ssl_session_timeout 5m;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_prefer_server_ciphers on;
+
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name wordgen.kr;
+
+        location / {
+            proxy_set_header HOST $host;
+            proxy_buffering off;
+            #proxy_pass_header Server;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded_for $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded_Proto $scheme;
+            proxy_redirect off;
+            proxy_pass http://127.0.0.1:6000;
+        }
+}
+server {
+    if ($host = wordgen.com) {
+            return 301 https://$host$request_uri;
+    }
+    server_name wordgen.com;
+    listen 80;
+    return 301 https://$host$request_uri;
+    #return 404;
+}
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/wordgen.kr/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/wordgen.kr/privkey.pem
+   Your cert will expire on 2021-09-08. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+ - Your account credentials have been saved in your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+ - If you like Certbot, please consider supporting our work by:
