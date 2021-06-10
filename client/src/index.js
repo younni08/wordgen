@@ -5,10 +5,8 @@ import './index.css';
 import Root from "./root";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <HashRouter>
-      <Root />
-    </HashRouter>
-  </React.StrictMode>,
+  <HashRouter>
+    <Root />
+  </HashRouter>,
   document.getElementById('root')
 );

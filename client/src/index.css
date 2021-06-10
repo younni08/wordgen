@@ -18,6 +18,48 @@ code {
 #f6d55c
 #ed553b
 */
+
+
+.footer{
+  background:#3caea3;
+  color:#fff;
+  padding:5px 0px;
+  margin:50px 0px 0px 0px;
+}
+.footer_level1{
+  display:flex;
+  justify-content: center;
+  font-weight:bold;
+  font-size:0.8em;
+}
+.footer_level1 a{
+  display:flex;
+  margin:0px 10px;
+  color:#fff;
+}
+.footer_level2{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size:0.70em;
+  margin:3px 0px 0px 0px;
+}
+.footer_level2_1{
+  display:flex;
+  justify-content: center;
+  width:100%;
+}
+.footer_level2 span{
+  display:flex;
+  margin:0px 0px 0px 10px;
+  padding:0px 10px 0px 0px;
+  border-right:solid 1px #fff;
+}
+.footer_level2 span:last-child{
+  border:none;
+}
+
 .test{
   color:#173f5f;
   color:#3caea3;
@@ -91,11 +133,12 @@ a{
 }
 .navi > div > div:nth-child(3) > a:first-child{
   display:flex;
-  margin:0px 20px 0px 0px;
+  margin:0px 12px 0px 0px;
   font-size:0.9em;
   font-weight: bold;
   color:#000;
   cursor: pointer;
+  padding:8px;
 }
 .navi > div > div:nth-child(3) > a:last-child span{
   display:flex;
@@ -215,7 +258,7 @@ a{
   flex-direction: column;
   align-items: center;
   width:300px;
-  margin:20vh 0px;
+  margin:16vh 0px;
 }
 .login > div > div.login_welcome{
   display:flex;
@@ -240,6 +283,14 @@ a{
   justify-content: center;
   font-size: 2em;
   margin: 30px 0px 20px 0px
+}
+.login > div > div.login_alert{
+  display:flex;
+  justify-content: center;
+}
+.login > div > div.login_alert > span{
+  font-size:0.8em;
+  color:red;
 }
 .login_general_input{
   display:flex;
@@ -284,6 +335,7 @@ a{
   padding:10px 0px;
   font-weight: bold;
   color:#fff;
+  cursor: pointer;
 }
 .login > div > div.login_options{
   display:flex;
@@ -328,10 +380,12 @@ a{
   display:flex;
   width:100%;
   justify-content: center;
-  margin:10px 0px 0px 0px;
+  margin:10px 0px 10px 0px;
   font-size:0.8em;
 }
 .login > div > div.login_agreement label{
+  display:flex;
+  margin:0px 10px 0px 0px;
   user-select: none;
 }
 /* ----------------------------- studio -------------------------------------------- */

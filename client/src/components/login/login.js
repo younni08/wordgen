@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const Login = () => {
@@ -6,6 +7,21 @@ const Login = () => {
 
     const handleInput1 = (e) => {setId(e.target.value)}
     const handleInput2 = (e) => {setPw(e.target.value)}
+
+    const submit = async() => {
+        let url = "/api/user/login"
+        let params = {
+            id:id,
+            pw:pw
+        }
+        const config = {
+            headers:{
+                "content-type":"application/json"
+            }
+        }
+        let res = await axios.post(url,params,config)
+        console.log(res.data)
+    }
 
     return (
         <div className="login">

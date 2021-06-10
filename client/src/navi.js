@@ -15,6 +15,7 @@ const Navi = () => {
                     <Link to="/"><span className="on">특징</span></Link>
                     <Link to="/solution"><span>솔루션</span></Link>
                     <Link to="/price"><span>가격</span></Link>
+                    <Link to="/studio"><span>임시</span></Link>
                 </div>
                 <div>
                     <Link to="/login"><span>로그인</span></Link>

@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(express.static(__dirname+"./../html"));
 
 // Import Routes
-const authRoute = require("./api/user");
+const authRoute = require("./api/auth");
 
 app.use("/api/user", authRoute);
 
