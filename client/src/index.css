@@ -293,6 +293,47 @@ a{
 .login > div > div.login_options > span{
   font-size:0.9em;
 }
+.login > div > div.login_checkuser{
+  display:flex;
+  width:calc(100% - 20px);
+  justify-content: space-between;
+  padding:10px;
+}
+.login > div > div.login_checkuser > div{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  border:solid 1px #7f7f7f;
+  width:130px;
+  /* height:50px; */
+  padding:10px 0px;
+  color:rgba(127,127,127,0.7);
+  cursor: pointer;
+}
+.login > div > div.login_checkuser > div.on{
+  color:#ed553b;
+  border:solid 1px #ed553b;
+}
+.login > div > div.login_checkuser > div:hover{
+  color:#ed553b;
+  border:solid 1px #ed553b;
+}
+.login > div > div.login_checkuser > div > span:last-child{
+  display:flex;
+  margin:5px 0px 0px 0px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.login > div > div.login_agreement{
+  display:flex;
+  width:100%;
+  justify-content: center;
+  margin:10px 0px 0px 0px;
+  font-size:0.8em;
+}
+.login > div > div.login_agreement label{
+  user-select: none;
+}
 /* ----------------------------- studio -------------------------------------------- */
 .studio{
   display:flex;
