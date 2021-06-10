@@ -76,37 +76,37 @@ const Studio = () => {
                                     </div>
                                     <div className="studio_typebox">
                                         <div>
-                                            <i className="xi-file-o xi-2x"></i>
+                                            <i className="xi-paper-o xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
                                     <div className="studio_typebox">
                                         <div>
-                                            <i className="xi-file-o xi-2x"></i>
+                                            <i className="xi-chart-pie xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
                                     <div className="studio_typebox">
                                         <div>
-                                            <i className="xi-file-o xi-2x"></i>
+                                            <i className="xi-image-o xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
                                     <div className="studio_typebox">
                                         <div>
-                                            <i className="xi-file-o xi-2x"></i>
+                                            <i className="xi-movie xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
                                     <div className="studio_typebox">
                                         <div>
-                                            <i className="xi-file-o xi-2x"></i>
+                                            <i className="xi-timer-o xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
                                     <div className="studio_typebox">
                                         <div>
-                                            <i className="xi-file-o xi-2x"></i>
+                                            <i className="xi-camera-o xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
@@ -119,6 +119,12 @@ const Studio = () => {
                                 </div>
                             </div>
                             {/* studio menu 1 end */}
+
+                            {/* studio menu 2 start */}
+                            <div className="studio_menubox" id="studio_menubox2">
+
+                            </div>
+                            {/* studio menu 2 end */}
 
                         </div>
                     </div>

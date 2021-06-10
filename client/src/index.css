@@ -436,7 +436,108 @@ a{
   display:flex;
   background:#f4f4f4;
   min-width:1000px;
+  padding:50px 0px;
   width:70%;
+}
+.studio_mobilebox{
+  display:flex;
+  width:100%;
+  justify-content: center;
+}
+.studio_mobilebox > div{
+  display:flex;
+  flex-direction: column;
+  height:550px;
+  width:300px;
+  border-radius: 15px;
+  border:solid 3px #000;
+  overflow: hidden;
+  box-shadow:5px 5px 5px 0px rgb(32 33 36 / 28%)
+}
+.studio_mobilebox > div > div.top{
+  display:flex;
+  justify-content: space-between;
+  height:20px;
+  border-bottom:solid 1px #000;
+  background:#000;
+}
+.studio_mobilebox > div > div.top > div{
+  display:flex;
+  align-items: center;
+}
+.studio_mobilebox > div > div.top span{
+  display:flex;
+  align-items: center;
+  margin:0px 2px;
+  font-size:0.8em;
+  color:#fff;
+}
+.studio_mobilebox > div > div.top span:first-child{
+  margin:0px 2px 0px 10px;
+}
+.studio_mobilebox > div > div.top span:last-child{
+  margin:0px 10px 0px 2px;
+}
+.studio_mobilebox > div > div.middle{
+  height:510px;
+  background:#fff;
+}
+.studio_mobilebox_header{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:2px 10px;
+  border-bottom:solid 1px #eaeaea;
+}
+.studio_mobilebox_header > div{
+  display:flex;
+}
+.studio_mobilebox_header > div img{
+  width:20px;
+}
+.studio_mobilebox_header > div span{
+  display:flex;
+  margin:0px 0px 0px 5px;
+  font-weight: bold;
+  font-size:1em;
+}
+.studio_mobilebox > div > div.bottom{
+  display:flex;
+  justify-content: center;
+  color:#fff;
+  height:20px;
+  border-top:solid 1px #000;
+  background:#000;
+}
+.studio_mobile_title{
+  display:flex;
+  justify-content: flex-start;
+  padding:10px 15px;
+  margin:0px 0px 0px 0px;
+}
+.studio_mobile_title > span{
+  font-weight: bold;
+}
+.studio_mobile_body{
+  background:rgba(60,174,163,0.7);
+  height:300px;
+}
+.studio_mobile_bottom{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin:10px 0px 0px 0px;
+  /* height:140px; */
+  /* background: #ed553b; */
+}
+.studio_mobile_bottom > div{
+  border:solid 1px #000;
+  padding:10px;
+  font-size:0.8em;
+}
+.studio_mobile_bottom > span{
+  display:flex;
+  padding:10px 20px;
 }
 .studio_menu{
   display:flex;
@@ -469,10 +570,15 @@ a{
 .studio_menubox{
   display:flex;
   flex-direction: column;
+  align-items: center;
   width:100%;
+}
+.studio_menubox_hidden{
+  display:none;
 }
 .studio_menubox > div.studio_menubox1{
   display:flex;
+  justify-content: center;
   flex-wrap: wrap;
   padding:5px 10px;
 }
