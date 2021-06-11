@@ -25,14 +25,14 @@ const Mobileview = () => {
                         <span><i className="xi-bars"></i></span>
                     </div>
                     <div className="studio_mobile_title">
-                        <span>오늘의 날씨는 무엇인가요?</span>
+                        <span>오늘의 날씨는 어떤가요?</span>
                     </div>
                     <div className="studio_mobile_body">
-
+                        <img src="./pics/wordcloud.png" alt="temp" />
                     </div>
                     <div className="studio_mobile_bottom">
                         <div>
-                            <span>입력해주세요.</span>
+                            <span>단어를 입력해주세요</span>
                         </div>
                         <span>입력</span>
                     </div>

@@ -13,16 +13,22 @@ const Studio = () => {
             document.getElementById("studio_menu2").className=""
             document.getElementById("studio_menu3").className=""
             document.getElementById("studio_menu1").className="on"
+            document.getElementById("studio_menubox2").className="studio_menubox_hidden"
+            document.getElementById("studio_menubox1").className="studio_menubox"
         }
         if(e.currentTarget.getAttribute("id")==="studio_menu2"){
             document.getElementById("studio_menu1").className=""
             document.getElementById("studio_menu3").className=""
             document.getElementById("studio_menu2").className="on"
+            document.getElementById("studio_menubox1").className="studio_menubox_hidden"
+            document.getElementById("studio_menubox2").className="studio_menubox"
         }
         if(e.currentTarget.getAttribute("id")==="studio_menu3"){
             document.getElementById("studio_menu1").className=""
             document.getElementById("studio_menu2").className=""
             document.getElementById("studio_menu3").className="on"
+            document.getElementById("studio_menubox1").className="studio_menubox_hidden"
+            document.getElementById("studio_menubox2").className="studio_menubox_hidden"
         }
     }
 
@@ -116,13 +122,33 @@ const Studio = () => {
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
-                                </div>
+                                </div>fd
                             </div>
                             {/* studio menu 1 end */}
 
                             {/* studio menu 2 start */}
                             <div className="studio_menubox" id="studio_menubox2">
+                                <div className="studio_menubox2">
+                                    <div className="studio_menubox2_general">
+                                        <div>
+                                            <span>질문을 적어주세요.</span>
 
+                                        </div>
+                                        <div className="inputwapper_text">
+                                            <input placeholder="학생들에게 무엇을 물어볼까요?" />
+                                        </div>
+                                    </div>
+                                    <div className="studio_menubox2_general">
+                                        <div>
+                                            <span>옵션</span>
+
+                                        </div>
+                                        <div className="inputwapper_singlebutton">
+                                            <span><i className="xi-plus-min xi-x" />옵션 추가하기</span>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                             {/* studio menu 2 end */}
 
