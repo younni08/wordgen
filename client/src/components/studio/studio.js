@@ -3,12 +3,13 @@ import Mobileview from "./mobile_view"
 
 const Studio = () => {
     const [type,setType] = useState("")
-    const [menu1,setMenu1] = useState(true)
-    const [menu2,setMenu2] = useState(false)
-    const [menu3,setMenu3] = useState(false)
+    const [question,setQuestion] = useState("")
+    
+    const [voteAddlevel,setVooteAddleve] = useState(0)
+    const [typevote,setTypevote] = useState(false)
+    const [typewordcloud,setTypewordcloud] = useState(false)
 
     const studioMenu = (e) => {
-        console.log(e.currentTarget.getAttribute("id"))
         if(e.currentTarget.getAttribute("id")==="studio_menu1"){
             document.getElementById("studio_menu2").className=""
             document.getElementById("studio_menu3").className=""
@@ -35,13 +36,90 @@ const Studio = () => {
     const tempType1 = () => {
         document.getElementById("studio_type_wordcloud").className="studio_typebox"
         document.getElementById("studio_type_vote").className="studio_typebox_on"
+        document.getElementById("studio_menubox1").className="studio_menubox_hidden"
+        document.getElementById("studio_menubox2").className="studio_menubox"
+        document.getElementById("studio_menu1").className=""
+        document.getElementById("studio_menu3").className=""
+        document.getElementById("studio_menu2").className="on"
         setType("vote")
+        setTypevote(true)
+        setTypewordcloud(false)
     }
 
     const tempType2 = () => {
         document.getElementById("studio_type_vote").className="studio_typebox"
         document.getElementById("studio_type_wordcloud").className="studio_typebox_on"
+        document.getElementById("studio_menubox1").className="studio_menubox_hidden"
+        document.getElementById("studio_menubox2").className="studio_menubox"
+        document.getElementById("studio_menu1").className=""
+        document.getElementById("studio_menu3").className=""
+        document.getElementById("studio_menu2").className="on"
         setType("wordcloud")
+        setTypewordcloud(true)
+        setTypevote(false)
+    }
+
+    const handleQuestion = (e) => {setQuestion(e.target.value)}
+
+
+
+    // vote
+    const [voteString1,setVoteString1] = useState("")
+    const [voteString2,setVoteString2] = useState("")
+    const [voteString3,setVoteString3] = useState("")
+    const [voteString4,setVoteString4] = useState("")
+    const [voteString5,setVoteString5] = useState("")
+
+    const handleVoteString1 = (e) => {setVoteString1(e.target.value)}
+    const handleVoteString2 = (e) => {setVoteString2(e.target.value)}
+    const handleVoteString3 = (e) => {setVoteString3(e.target.value)}
+    const handleVoteString4 = (e) => {setVoteString4(e.target.value)}
+    const handleVoteString5 = (e) => {setVoteString5(e.target.value)}
+
+    const [voteChartType,setVoteChartType] = useState("")
+
+    const typeVoteAddList = () => {
+        if(voteAddlevel===0){
+            setVooteAddleve(1)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "50px"
+        }
+        if(voteAddlevel===1){
+            setVooteAddleve(2)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "100px"
+        }
+        if(voteAddlevel===2){
+            setVooteAddleve(3)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "150px"
+        }
+        if(voteAddlevel===3){
+            setVooteAddleve(4)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "200px"
+        }
+        if(voteAddlevel===4){
+            setVooteAddleve(5)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "250px"
+        }
+    }
+
+    const handleVoteChartType = (e) => {
+        if(e.currentTarget.getAttribute("id")==="chart_bar_verti"){
+            document.getElementById("chart_pie").className=""
+            document.getElementById("chart_bar_hori").className=""
+            document.getElementById("chart_bar_verti").className="on"
+            setVoteChartType("chart_bar_verti")
+        }
+        if(e.currentTarget.getAttribute("id")==="chart_bar_hori"){
+            document.getElementById("chart_bar_verti").className=""
+            document.getElementById("chart_bar_hori").className="on"
+            document.getElementById("chart_pie").className=""
+            setVoteChartType("chart_bar_hori")
+        }
+        if(e.currentTarget.getAttribute("id")==="chart_pie"){
+            document.getElementById("chart_bar_verti").className=""
+            document.getElementById("chart_bar_hori").className=""
+            document.getElementById("chart_pie").className="on"
+            setVoteChartType("chart_pie")
+        }
     }
 
     return (
@@ -56,6 +134,14 @@ const Studio = () => {
                         <div className="studio_mobile">
                             <Mobileview
                                 type={type}
+                                question={question}
+                                voteAddlevel={voteAddlevel}
+                                voteString1={voteString1}
+                                voteString2={voteString2}
+                                voteString3={voteString3}
+                                voteString4={voteString4}
+                                voteString5={voteString5}
+                                voteChartType={voteChartType}
                             />
                         </div>
                         <div className="studio_menu">
@@ -122,32 +208,76 @@ const Studio = () => {
                                         </div>
                                         <span>추가 예정</span>
                                     </div>
-                                </div>fd
+                                </div>
                             </div>
                             {/* studio menu 1 end */}
 
                             {/* studio menu 2 start */}
-                            <div className="studio_menubox" id="studio_menubox2">
+                            <div className="studio_menubox_hidden" id="studio_menubox2">
                                 <div className="studio_menubox2">
                                     <div className="studio_menubox2_general">
                                         <div>
                                             <span>질문을 적어주세요.</span>
-
                                         </div>
                                         <div className="inputwapper_text">
-                                            <input placeholder="학생들에게 무엇을 물어볼까요?" />
+                                            <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
                                         </div>
                                     </div>
                                     <div className="studio_menubox2_general">
                                         <div>
                                             <span>옵션</span>
-
+                                            <span>최대 5개까지 가능합니다.</span>
                                         </div>
-                                        <div className="inputwapper_singlebutton">
+                                        <div className="inputwapper_singlebutton" onClick={typeVoteAddList}>
                                             <span><i className="xi-plus-min xi-x" />옵션 추가하기</span>
                                         </div>
                                     </div>
-
+                                    <div className="studio_menubox2_general_inputlist" id="studio_menubox2_general_inputlist">
+                                        <div>
+                                            <span>1.</span>
+                                            <input placeholder="첫번째 질문" onChange={handleVoteString1} />
+                                            <span><i className="xi-close-min xi-x" /></span>
+                                        </div>
+                                        <div>
+                                            <span>2.</span>
+                                            <input placeholder="두번째 질문" onChange={handleVoteString2} />
+                                            <span><i className="xi-close-min xi-x" /></span>
+                                        </div>
+                                        <div>
+                                            <span>3.</span>
+                                            <input placeholder="세번째 질문" onChange={handleVoteString3} />
+                                            <span><i className="xi-close-min xi-x" /></span>
+                                        </div>
+                                        <div>
+                                            <span>4.</span>
+                                            <input placeholder="네번째 질문" onChange={handleVoteString4} />
+                                            <span><i className="xi-close-min xi-x" /></span>
+                                        </div>
+                                        <div>
+                                            <span>5.</span>
+                                            <input placeholder="다섯번째 질문" onChange={handleVoteString5} />
+                                            <span><i className="xi-close-min xi-x" /></span>
+                                        </div>
+                                    </div>
+                                    <div className="studio_menubox2_general">
+                                        <div>
+                                            <span>차트 선택</span>
+                                        </div>
+                                        <div className="inputwapper_morebutton">
+                                            <div className="on" id="chart_bar_verti" onClick={handleVoteChartType} >
+                                                <span><i className="xi-chart-bar xi-2x" /></span>
+                                                <span>바차트(새로)</span>
+                                            </div>
+                                            <div id="chart_bar_hori" onClick={handleVoteChartType} >
+                                                <span><i className="xi-chart-bar xi-rotate-90 xi-2x" /></span>
+                                                <span>바차트(가로)</span>
+                                            </div>
+                                            <div id="chart_pie" onClick={handleVoteChartType} >
+                                                <span><i className="xi-chart-pie xi-2x" /></span>
+                                                <span>파이차트</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             {/* studio menu 2 end */}

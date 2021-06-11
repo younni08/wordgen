@@ -1,6 +1,20 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
+import MobileVote from "./mobile_vote"
 
-const Mobileview = () => {
+const Mobileview = (props) => {
+    const [question,setQuestion] = useState("학생들에게 무엇을 물어볼까요?")
+    const [typeVote,setTypeVote] = useState(false)
+    const [defaultBody,setDefaultBody] = useState(true)
+    useEffect(()=>{
+        init();
+    },[props])
+
+    const init = () => {
+        if(props.question!=="") setQuestion(props.question)
+        if(props.type!=="") setDefaultBody(false)
+        if(props.type==="vote") setTypeVote(true)
+
+    }
     return (
         <div className="studio_mobilebox">
             <div>
@@ -25,17 +39,22 @@ const Mobileview = () => {
                         <span><i className="xi-bars"></i></span>
                     </div>
                     <div className="studio_mobile_title">
-                        <span>오늘의 날씨는 어떤가요?</span>
+                        <span>{question}</span>
                     </div>
-                    <div className="studio_mobile_body">
-                        <img src="./pics/wordcloud.png" alt="temp" />
-                    </div>
-                    <div className="studio_mobile_bottom">
-                        <div>
-                            <span>단어를 입력해주세요</span>
-                        </div>
-                        <span>입력</span>
-                    </div>
+                    {
+                        typeVote?<MobileVote 
+                            voteAddlevel={props.voteAddlevel}
+                            voteString1={props.voteString1}
+                            voteString2={props.voteString2}
+                            voteString3={props.voteString3}
+                            voteString4={props.voteString4}
+                            voteString5={props.voteString5}
+                            voteChartType={props.voteChartType}
+                        />:""
+                    }
+                    {
+                        defaultBody?<div className="studio_mobile_body_default"></div>:""
+                    }
                 </div>
                 <div className="bottom">
                     <span><i className="xi-album"></i></span>
