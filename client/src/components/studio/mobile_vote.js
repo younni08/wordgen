@@ -305,28 +305,28 @@ const MobileVote = (props) => {
                 <span>실시간으로 반영됩니다.</span>
             </div>
             {
-                    defaultOptions?<div className="mobilevote_options">
-                    <div>
-                        <span>1.</span>
-                        <span>남색</span>
-                    </div>
-                    <div>
-                        <span>2.</span>
-                        <span>파랑</span>
-                    </div>
-                    <div>
-                        <span>3.</span>
-                        <span>초록</span>
-                    </div>
-                    <div>
-                        <span>4.</span>
-                        <span>노랑</span>
-                    </div>
-                    <div>
-                        <span>5.</span>
-                        <span>주황</span>
-                    </div>
-                    </div>:""
+                defaultOptions?<div className="mobilevote_options">
+                <div>
+                    <span>1.</span>
+                    <span>남색</span>
+                </div>
+                <div>
+                    <span>2.</span>
+                    <span>파랑</span>
+                </div>
+                <div>
+                    <span>3.</span>
+                    <span>초록</span>
+                </div>
+                <div>
+                    <span>4.</span>
+                    <span>노랑</span>
+                </div>
+                <div>
+                    <span>5.</span>
+                    <span>주황</span>
+                </div>
+                </div>:""
             }
             <div className="mobilevote_options">
                 

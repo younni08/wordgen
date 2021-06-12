@@ -25,6 +25,7 @@ const Mobileview = (props) => {
     }
 
     // 사진 추가 
+    // 페이지 추가 구성
     return (
         <div className="studio_mobilebox">
             <div>

@@ -181,6 +181,22 @@ const Studio = () => {
     }
 
     // wordcloud
+    const [wcMaxWord,setWcMaxWord] = useState(5)
+    const setWCMaxword = (e) => {
+        let temp = wcMaxWord;
+        if(e.currentTarget.getAttribute("id")==="wcMaxIncrease"){
+            if(temp===30) return 0
+            temp = temp + 1
+            setWcMaxWord(temp)
+        }
+        if(e.currentTarget.getAttribute("id")==="wcMaxDecrease"){
+            if(temp===1) return 0
+            temp = temp - 1
+            setWcMaxWord(temp)
+        }
+    }
+
+    const handleWcMaxword = (e) => {setWcMaxWord(e.target.value)}
 
     return (
         <div className="studio">
@@ -343,29 +359,34 @@ const Studio = () => {
                                     </div>
                                     :""
                                 }
-                                {
+                                {/* {
                                     typewordcloud?
-                                    <div className="studio_menubox2">
-                                        <div className="studio_menubox2_general">
-                                            <div>
-                                                <span>주제을 적어주세요.</span>
-                                            </div>
-                                            <div className="inputwapper_text">
-                                                <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
-                                            </div>
-                                        </div>
-                                        <div className="studio_menubox2_general">
-                                            <div>
-                                                <span>1인당 입력 가능 횟수.</span>
-                                            </div>
-                                            <div className="inputwapper_text">
-                                                <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
                                     :""
-                                }
+                                } */}
+                                <div className="studio_menubox2">
+                                    <div className="studio_menubox2_general">
+                                        <div>
+                                            <span>주제을 적어주세요.</span>
+                                        </div>
+                                        <div className="inputwapper_text">
+                                            <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
+                                        </div>
+                                    </div>
+                                    <div className="studio_menubox2_general">
+                                        <div>
+                                            <span>1인당 입력 가능 횟수.</span>
+                                            <span>최대 30회</span>
+                                        </div>
+                                        <div className="inputwapper_number_cnt">
+                                            <input value={wcMaxWord} onChange={handleWcMaxword} />
+                                            <div>
+                                                <span id="wcMaxIncrease" onClick={setWCMaxword}><i className="xi-caret-up-min"></i></span>
+                                                <span id="wcMaxDecrease" onClick={setWCMaxword}><i className="xi-caret-down-min"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                             {/* studio menu 2 end */}
 

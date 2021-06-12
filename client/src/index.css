@@ -83,6 +83,40 @@ code {
 a{
   text-decoration: none;
 }
+.inputwapper_number_cnt{
+  display:flex;
+  width:calc(100% - 30px);
+  max-width: 80px;
+  padding:10px;
+  border:solid 1px #000;
+}
+.inputwapper_number_cnt > div{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width:30px;
+}
+.inputwapper_number_cnt > div > span{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding:0px 5px;
+}
+.inputwapper_number_cnt > input{
+  width:calc(100% - 20px);
+  font-size:0.9em;
+  font-weight: bold;
+  border:none;
+}
+.inputwapper_number_cnt > input::placeholder {
+  color: #7f7f7f;
+  font-weight: bold;
+  font-size:0.9em;
+}
+.inputwapper_number_cnt > input:focus{
+  outline: none;
+}
 .inputwapper_text{
   display:flex;
   width:calc(100% - 20px);
