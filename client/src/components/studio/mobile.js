@@ -1,10 +1,12 @@
 import React,{useEffect,useState} from "react";
 import MobileVote from "./mobile_vote"
+import MobileQuestion from "./mobile_question"
 import MobileWordCloud from "./mobile_wordcloud"
 
 const Mobileview = (props) => {
     const [question,setQuestion] = useState("학생들에게 무엇을 물어볼까요?")
     const [typeVote,setTypeVote] = useState(false)
+    const [typequestion,setTypequestion] = useState(false)
     const [typewordcloud,setTypewordcloud] = useState(false)
     const [defaultBody,setDefaultBody] = useState(true)
     useEffect(()=>{
@@ -16,11 +18,18 @@ const Mobileview = (props) => {
         if(props.type!=="") setDefaultBody(false)
         if(props.type==="vote"){
             setTypewordcloud(false)
+            setTypequestion(false)
             setTypeVote(true)
         }
         if(props.type==="wordcloud"){
             setTypeVote(false)
+            setTypequestion(false)
             setTypewordcloud(true)
+        }
+        if(props.type==="question"){
+            setTypeVote(false)
+            setTypewordcloud(false)
+            setTypequestion(true)
         }
     }
 
@@ -66,6 +75,18 @@ const Mobileview = (props) => {
                     {
                         typewordcloud?<MobileWordCloud 
 
+                        />:""
+                    }
+                    {
+                        typequestion?<MobileQuestion 
+                            voteAddlevel={props.voteAddlevel}
+                            voteString1={props.voteString1}
+                            voteString2={props.voteString2}
+                            voteString3={props.voteString3}
+                            voteString4={props.voteString4}
+                            voteString5={props.voteString5}
+                            voteChartType={props.voteChartType}
+                            longText={props.longText}
                         />:""
                     }
                     {

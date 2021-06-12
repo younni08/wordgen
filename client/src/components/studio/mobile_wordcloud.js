@@ -13,12 +13,14 @@ const Wordcloud = () => {
         fontStyle: "normal",
         fontWeight: "normal",
         padding: 1,
-        rotations: 2,
-        rotationAngles: [0, 270],
+        rotations: 3,
+        rotationAngles: [0, 30,-30],
         scale: "sqrt",
         spiral: "archimedean",
         transitionDuration: 500
     };
+
+    // 시청자 참여 줄타기
 
     return (
         <div className="studio_mobile_body">
