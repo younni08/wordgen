@@ -112,6 +112,7 @@ a{
   border-radius: 5px;
   cursor: pointer;
   padding:10px;
+  user-select: none;
 }
 .inputwapper_singlebutton > span{
   color:#fff;
@@ -558,6 +559,16 @@ a{
 .studio_mobilebox > div > div.middle{
   height:510px;
   background:#fff;
+  overflow-y: scroll;
+}
+.studio_mobilebox > div > div::-webkit-scrollbar {
+  width: 1px;
+}
+.studio_mobilebox > div > div::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+}
+.studio_mobilebox > div > div::-webkit-scrollbar-track {
+  background-color: grey;
 }
 .studio_mobilebox_header{
   display:flex;

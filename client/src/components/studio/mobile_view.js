@@ -1,9 +1,11 @@
 import React,{useEffect,useState} from "react";
 import MobileVote from "./mobile_vote"
+import MobileWordCloud from "./mobile_wordcloud"
 
 const Mobileview = (props) => {
     const [question,setQuestion] = useState("학생들에게 무엇을 물어볼까요?")
     const [typeVote,setTypeVote] = useState(false)
+    const [typewordcloud,setTypewordcloud] = useState(false)
     const [defaultBody,setDefaultBody] = useState(true)
     useEffect(()=>{
         init();
@@ -12,9 +14,17 @@ const Mobileview = (props) => {
     const init = () => {
         if(props.question!=="") setQuestion(props.question)
         if(props.type!=="") setDefaultBody(false)
-        if(props.type==="vote") setTypeVote(true)
-
+        if(props.type==="vote"){
+            setTypewordcloud(false)
+            setTypeVote(true)
+        }
+        if(props.type==="wordcloud"){
+            setTypeVote(false)
+            setTypewordcloud(true)
+        }
     }
+
+    // 사진 추가 
     return (
         <div className="studio_mobilebox">
             <div>
@@ -50,6 +60,11 @@ const Mobileview = (props) => {
                             voteString4={props.voteString4}
                             voteString5={props.voteString5}
                             voteChartType={props.voteChartType}
+                        />:""
+                    }
+                    {
+                        typewordcloud?<MobileWordCloud 
+
                         />:""
                     }
                     {

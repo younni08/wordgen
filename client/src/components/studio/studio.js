@@ -2,10 +2,10 @@ import React,{useState} from "react";
 import Mobileview from "./mobile_view"
 
 const Studio = () => {
+
+    // general
     const [type,setType] = useState("")
     const [question,setQuestion] = useState("")
-    
-    const [voteAddlevel,setVooteAddleve] = useState(0)
     const [typevote,setTypevote] = useState(false)
     const [typewordcloud,setTypewordcloud] = useState(false)
 
@@ -61,9 +61,8 @@ const Studio = () => {
 
     const handleQuestion = (e) => {setQuestion(e.target.value)}
 
-
-
     // vote
+    const [voteAddlevel,setVooteAddleve] = useState(0)
     const [voteString1,setVoteString1] = useState("")
     const [voteString2,setVoteString2] = useState("")
     const [voteString3,setVoteString3] = useState("")
@@ -122,6 +121,67 @@ const Studio = () => {
         }
     }
 
+    const removeVoteList = (e) => {
+        console.log(voteAddlevel)
+        if(voteAddlevel===1){
+            setVooteAddleve(0)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "0px"
+        }
+        if(voteAddlevel===2){
+            setVooteAddleve(1)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "50px"
+        }
+        if(voteAddlevel===3){
+            setVooteAddleve(2)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "100px"
+        }
+        if(voteAddlevel===4){
+            setVooteAddleve(3)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "150px"
+        }
+        if(voteAddlevel===5){
+            setVooteAddleve(4)
+            document.getElementById("studio_menubox2_general_inputlist").style.height = "200px"
+        }
+        if(e.currentTarget.getAttribute("id")==="removeVoteList1"){
+            let temp2 = voteString2
+            let temp3 = voteString3
+            let temp4 = voteString4
+            let temp5 = voteString5
+            setVoteString1(temp2)
+            setVoteString2(temp3)
+            setVoteString3(temp4)
+            setVoteString4(temp5)
+            setVoteString5("")
+        }
+        if(e.currentTarget.getAttribute("id")==="removeVoteList2"){
+            let temp3 = voteString3
+            let temp4 = voteString4
+            let temp5 = voteString5
+            setVoteString2(temp3)
+            setVoteString3(temp4)
+            setVoteString4(temp5)
+            setVoteString5("")
+        }
+        if(e.currentTarget.getAttribute("id")==="removeVoteList3"){
+            let temp4 = voteString4
+            let temp5 = voteString5
+            setVoteString3(temp4)
+            setVoteString4(temp5)
+            setVoteString5("")
+        }
+        if(e.currentTarget.getAttribute("id")==="removeVoteList4"){
+            let temp5 = voteString5
+            setVoteString4(temp5)
+            setVoteString5("")
+        }
+        if(e.currentTarget.getAttribute("id")==="removeVoteList5"){
+            setVoteString5("")
+        }
+    }
+
+    // wordcloud
+
     return (
         <div className="studio">
             <div>
@@ -148,7 +208,7 @@ const Studio = () => {
                             <div>
                                 <span id="studio_menu1" onClick={studioMenu} className="on">종류</span>
                                 <span id="studio_menu2" onClick={studioMenu}>설정</span>
-                                <span id="studio_menu3" onClick={studioMenu}>추가 설정</span>
+                                <span id="studio_menu3" onClick={studioMenu}>고급 설정</span>
                             </div>
 
                             {/* studio menu 1 start */}
@@ -214,71 +274,98 @@ const Studio = () => {
 
                             {/* studio menu 2 start */}
                             <div className="studio_menubox_hidden" id="studio_menubox2">
-                                <div className="studio_menubox2">
-                                    <div className="studio_menubox2_general">
-                                        <div>
-                                            <span>질문을 적어주세요.</span>
-                                        </div>
-                                        <div className="inputwapper_text">
-                                            <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
-                                        </div>
-                                    </div>
-                                    <div className="studio_menubox2_general">
-                                        <div>
-                                            <span>옵션</span>
-                                            <span>최대 5개까지 가능합니다.</span>
-                                        </div>
-                                        <div className="inputwapper_singlebutton" onClick={typeVoteAddList}>
-                                            <span><i className="xi-plus-min xi-x" />옵션 추가하기</span>
-                                        </div>
-                                    </div>
-                                    <div className="studio_menubox2_general_inputlist" id="studio_menubox2_general_inputlist">
-                                        <div>
-                                            <span>1.</span>
-                                            <input placeholder="첫번째 질문" onChange={handleVoteString1} />
-                                            <span><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>2.</span>
-                                            <input placeholder="두번째 질문" onChange={handleVoteString2} />
-                                            <span><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>3.</span>
-                                            <input placeholder="세번째 질문" onChange={handleVoteString3} />
-                                            <span><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>4.</span>
-                                            <input placeholder="네번째 질문" onChange={handleVoteString4} />
-                                            <span><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>5.</span>
-                                            <input placeholder="다섯번째 질문" onChange={handleVoteString5} />
-                                            <span><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                    </div>
-                                    <div className="studio_menubox2_general">
-                                        <div>
-                                            <span>차트 선택</span>
-                                        </div>
-                                        <div className="inputwapper_morebutton">
-                                            <div className="on" id="chart_bar_verti" onClick={handleVoteChartType} >
-                                                <span><i className="xi-chart-bar xi-2x" /></span>
-                                                <span>바차트(새로)</span>
+                                {
+                                    typevote?
+                                    <div className="studio_menubox2">
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>질문을 적어주세요.</span>
                                             </div>
-                                            <div id="chart_bar_hori" onClick={handleVoteChartType} >
-                                                <span><i className="xi-chart-bar xi-rotate-90 xi-2x" /></span>
-                                                <span>바차트(가로)</span>
-                                            </div>
-                                            <div id="chart_pie" onClick={handleVoteChartType} >
-                                                <span><i className="xi-chart-pie xi-2x" /></span>
-                                                <span>파이차트</span>
+                                            <div className="inputwapper_text">
+                                                <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
                                             </div>
                                         </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>옵션</span>
+                                                <span>최대 5개까지 가능합니다.</span>
+                                            </div>
+                                            <div className="inputwapper_singlebutton" onClick={typeVoteAddList}>
+                                                <span><i className="xi-plus-min xi-x" />옵션 추가하기</span>
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general_inputlist" id="studio_menubox2_general_inputlist">
+                                            <div>
+                                                <span>1.</span>
+                                                <input placeholder="첫번째 질문" onChange={handleVoteString1} />
+                                                <span id="removeVoteList1" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>2.</span>
+                                                <input placeholder="두번째 질문" onChange={handleVoteString2} />
+                                                <span id="removeVoteList2" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>3.</span>
+                                                <input placeholder="세번째 질문" onChange={handleVoteString3} />
+                                                <span id="removeVoteList3" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>4.</span>
+                                                <input placeholder="네번째 질문" onChange={handleVoteString4} />
+                                                <span id="removeVoteList4" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>5.</span>
+                                                <input placeholder="다섯번째 질문" onChange={handleVoteString5} />
+                                                <span id="removeVoteList5" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>차트 선택</span>
+                                            </div>
+                                            <div className="inputwapper_morebutton">
+                                                <div className="on" id="chart_bar_verti" onClick={handleVoteChartType} >
+                                                    <span><i className="xi-chart-bar xi-2x" /></span>
+                                                    <span>바차트(새로)</span>
+                                                </div>
+                                                <div id="chart_bar_hori" onClick={handleVoteChartType} >
+                                                    <span><i className="xi-chart-bar xi-rotate-90 xi-2x" /></span>
+                                                    <span>바차트(가로)</span>
+                                                </div>
+                                                <div id="chart_pie" onClick={handleVoteChartType} >
+                                                    <span><i className="xi-chart-pie xi-2x" /></span>
+                                                    <span>파이차트</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    :""
+                                }
+                                {
+                                    typewordcloud?
+                                    <div className="studio_menubox2">
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>주제을 적어주세요.</span>
+                                            </div>
+                                            <div className="inputwapper_text">
+                                                <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>1인당 입력 가능 횟수.</span>
+                                            </div>
+                                            <div className="inputwapper_text">
+                                                <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    :""
+                                }
                             </div>
                             {/* studio menu 2 end */}
 
