@@ -28,6 +28,7 @@ const Price = () => {
                         body="월 11000원"
                         icon="xi-school xi-5x"
                         list="Light 요금제의 모든 혜택,+ 최대 참여자 100명,+ 연계 코드 최대 10개"
+                        focus={true}
                     />
                     <Pricebox 
                         title="Enterprise"
