@@ -920,6 +920,13 @@ a{
   height:100px;
   max-width: calc(100% - 20px);
 }
+.mobilequestion p{
+  margin:0px;
+  font-size:0.8em;
+}
+.mobilequestion > div{
+  margin:10px 0px 0px 0px;
+}
 .mobilevote_chart{
   background:rgba(60,174,163,0.3);
   display:flex;

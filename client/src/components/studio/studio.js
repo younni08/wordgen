@@ -211,9 +211,19 @@ const Studio = () => {
 
     // question
     const [longText,setLongText] = useState("")
+    const [studioimage,setStudioimage] = useState("");
+    // 이건 필요한지 잘 모르겠음
+    const [studioimageon,setStudioimageon] = useState(false)
 
-    const handleLongText = (e) => {console.log(e);setLongText(e)}
+    const handleLongText = (e) => {setLongText(e)}
     // 이미지 미리보기 추가해야함
+
+    const readFile = (e) => {
+        const imageFile = e.target.files[0];
+        const imageUrl = URL.createObjectURL(imageFile);
+        setStudioimage(imageUrl);
+        setStudioimageon(true)
+    }
 
 
     return (
@@ -237,6 +247,8 @@ const Studio = () => {
                                 voteString5={voteString5}
                                 voteChartType={voteChartType}
                                 longText={longText}
+                                studioimage={studioimage}
+                                studioimageon={studioimageon}
                             />
                         </div>
                         <div className="studio_menu">
@@ -421,7 +433,7 @@ const Studio = () => {
                                             <span>사진을 추가할까요?</span>
                                         </div>
                                         <div className="inputwapper_text">
-                                            <input type="file" />
+                                            <input type="file" id="studio_inpu" onChange={readFile}/>
                                         </div>
                                     </div>
                                     <div className="studio_menubox2_general">

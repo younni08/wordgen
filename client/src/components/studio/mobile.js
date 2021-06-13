@@ -87,6 +87,7 @@ const Mobileview = (props) => {
                             voteString5={props.voteString5}
                             voteChartType={props.voteChartType}
                             longText={props.longText}
+                            studioimage={props.studioimage}
                         />:""
                     }
                     {
