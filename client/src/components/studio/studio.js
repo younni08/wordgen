@@ -1,9 +1,11 @@
-import React,{useState} from "react";
+import React,{useMemo, useState} from "react";
 import Mobileview from "./mobile"
 import ReactQuill from "react-quill";
 import QRCode from "qrcode.react"
 // var QRCode = require('qrcode.react');
 import 'react-quill/dist/quill.snow.css';
+import axios from "axios";
+import { getCookie } from "../common/cookie";
 
 const Studio = () => {
 
@@ -215,7 +217,6 @@ const Studio = () => {
     const [longText,setLongText] = useState("")
     const [studioimage,setStudioimage] = useState("");
     // 이건 필요한지 잘 모르겠음
-    const [studioimageon,setStudioimageon] = useState(false)
 
     const handleLongText = (e) => {setLongText(e)}
     // 이미지 미리보기 추가해야함
@@ -224,10 +225,58 @@ const Studio = () => {
         const imageFile = e.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setStudioimage(imageUrl);
-        setStudioimageon(true)
     }
 
-    const qrimagesetting = [{width:500}]
+    
+    // general function
+
+    
+    const init = async() => {
+        let url = "/api/user/checkgrcode"
+        let token = getCookie("token")
+        let session = getCookie("session")
+        // if(toekn===null|session===null) return alert("로그인 후 이용하세요.")
+        let params = {
+            token:token,
+            session:session
+        }
+        const config = {
+            headers:{
+                "content-type":"application/json"
+            }
+        }
+        let res = await axios.post(url,params,config)
+        console.log(res.data)
+    }
+    
+    useMemo(()=>{
+        init()
+    },[window.location.href])
+
+    const sumitquestion = async() => {
+        let url = "/api/user/savequestion";
+        let formData = new FormData();
+        let params = {
+            type:type,
+            question:question,
+            voteAddlevel:voteAddlevel,
+            voteString1:voteString1,
+            voteString2:voteString2,
+            voteString3:voteString3,
+            voteString4:voteString4,
+            voteString5:voteString5,
+            voteChartType:voteChartType,
+            longText:longText,
+            studioimage:studioimage
+        }
+        const config = {
+            headers:{
+                "content-type":"application/json"
+            }
+        }
+        let res = await axios.post(url,params,config)
+        console.log(res.data)
+    }
 
     return (
         <div className="studio">
@@ -251,7 +300,6 @@ const Studio = () => {
                                 voteChartType={voteChartType}
                                 longText={longText}
                                 studioimage={studioimage}
-                                studioimageon={studioimageon}
                             />
                         </div>
                         <div className="studio_menu">
@@ -556,7 +604,7 @@ const Studio = () => {
                                     </div>
                                     <div>
                                         <span className="bigtxt">작업 저장</span>
-                                        <div className="button">
+                                        <div className="button" onClick={sumitquestion}>
                                             <span><i className="xi-save xi-x" /></span>
                                             <span>작업 저장</span>
                                         </div>
