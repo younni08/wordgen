@@ -14,7 +14,6 @@ const MobileVote = (props) => {
     const [defaultOptions,setDefaultOptions] = useState(true)
 
     const init = () => {
-        console.log(props)
         if(props.voteChartType==="chart_bar_verti"){
             setPiechar(false)
             setBarchar(true)

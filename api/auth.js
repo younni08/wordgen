@@ -220,6 +220,26 @@ router.post("/checklogin", async(req,res)=> {
     }
 })
 
+router.post("/checkgrcode",async(req,res)=>{
+    try{
+        console.log(req.body)
+        return res.send("qrcode")
+    }catch(err){
+        console.log("error on save question")
+        console.log(err)
+        return res.send("fail")
+    }
+})
 
+router.post("/savequestion",async(req,res)=>{
+    try{
+        console.log(req.body)
+        return res.send("ccc")
+    }catch(err){
+        console.log("error on save question")
+        console.log(err)
+        return res.send("fail")
+    }
+})
 
 module.exports = router;
