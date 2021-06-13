@@ -230,7 +230,10 @@ const Studio = () => {
     
     // general function
 
-    
+    const [qrcode,setQrcode] = useState("")
+    const [pass,setPass] = useState(0)
+    const [passcode,setPasscode] = useState("")
+
     const init = async() => {
         let url = "/api/user/checkgrcode"
         let token = getCookie("token")
@@ -246,7 +249,10 @@ const Studio = () => {
             }
         }
         let res = await axios.post(url,params,config)
-        console.log(res.data)
+        if(res.data!=="fail")
+        setQrcode(res.data.code)
+        setPass(res.data.pass)
+        setPasscode(res.data.code+"#"+res.data.pass)
     }
     
     useMemo(()=>{
@@ -256,25 +262,41 @@ const Studio = () => {
     const sumitquestion = async() => {
         let url = "/api/user/savequestion";
         let formData = new FormData();
-        let params = {
-            type:type,
-            question:question,
-            voteAddlevel:voteAddlevel,
-            voteString1:voteString1,
-            voteString2:voteString2,
-            voteString3:voteString3,
-            voteString4:voteString4,
-            voteString5:voteString5,
-            voteChartType:voteChartType,
-            longText:longText,
-            studioimage:studioimage
-        }
-        const config = {
-            headers:{
-                "content-type":"application/json"
+        // if(toekn===null|session===null) return alert("로그인 후 이용하세요.")
+        let token = getCookie("token")
+        let session = getCookie("session")
+        formData.append('type',type);
+        formData.append('question',question);
+        formData.append('voteAddlevel',voteAddlevel);
+        formData.append('voteString1',voteString1);
+        formData.append('voteString2',voteString2);
+        formData.append('voteString3',voteString3);
+        formData.append('voteString4',voteString4);
+        formData.append('voteString5',voteString5);
+        formData.append('voteChartType',voteChartType);
+        formData.append('longText',longText);
+        formData.append('qrcode',qrcode);
+        formData.append('pass',pass);
+        formData.append('token',token);
+        formData.append('session',session);
+
+        let getImage = document.getElementById("studio_image_input1");
+        if(getImage!==null){
+            if(getImage.files.length!==0&&getImage.files[0]!==undefined){
+                formData.append("studioimage",getImage.files[0])
             }
         }
-        let res = await axios.post(url,params,config)
+
+        for (let p of formData){
+            console.log(p);
+        }
+
+        const config = {
+            headers:{
+                "content-type" : "multipart/form-data"
+            }
+        }
+        let res = await axios.post(url,formData,config)
         console.log(res.data)
     }
 
@@ -500,7 +522,7 @@ const Studio = () => {
                                                 <span>사진을 추가할까요?</span>
                                             </div>
                                             <div className="inputwapper_text">
-                                                <input type="file" id="studio_inpu" onChange={readFile}/>
+                                                <input type="file" id="studio_image_input1" onChange={readFile}/>
                                             </div>
                                         </div>
                                         <div className="studio_menubox2_general">
@@ -581,7 +603,7 @@ const Studio = () => {
                             <div>
                                 <div className="studio_qr_left">
                                     <QRCode 
-                                        value="http://wordgen.kr/"
+                                        value={"https://www.wordgen.kr/?q="+{passcode}}
                                         renderAs={"svg"}
                                         size={300}
                                         level={"L"}
@@ -589,9 +611,12 @@ const Studio = () => {
                                 </div>
                                 <div className="studio_qr_right">
                                     <div>
-                                        <span className="bigtxt">QR코드 주소값</span>
+                                        <div className="qr_copy">
+                                            <span className="bigtxt">QR코드 주소값</span>
+                                            <span>복사</span>
+                                        </div>
                                         <div className="box">
-                                            <span>https://www.wordgen.kr</span>
+                                            <span>https://www.wordgen.kr/?q={passcode}</span>
                                         </div>
                                     </div>
                                     <div>

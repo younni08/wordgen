@@ -18,21 +18,12 @@ create table users (
     user_ip inet
 )
 
-// qrbank 
-create table qrbank(
-  id serial primary key,
-  question_pk varchar(100),
-  pass int,
-  true_address varchar(100),
-  validity boolean default true,
-  date timestamp
-)
-
 // questionbank 
 create table questionbank(
   id serial primary key,
   user_pk varchar(100),
   question_pk varchar(100),
+  question_pass int,
   question_type varchar(50),
   question_series varchar(100),
   question_series_cnt int,
@@ -55,7 +46,7 @@ create table questionbank(
   question_date timestamp,
   question_valid boolean default true,
   question_state varchar(100),
-  question_ip int
+  question_ip inet
 )
 
 // etc/nginx/nginx.conf

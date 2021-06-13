@@ -1,4 +1,8 @@
 const router = require("express").Router();
+const multer = require("multer");
+let storage = multer.memoryStorage();
+const upload = multer({storage:storage});
+
 
 //btoa
 const btoa = require('btoa');
@@ -223,7 +227,30 @@ router.post("/checklogin", async(req,res)=> {
 router.post("/checkgrcode",async(req,res)=>{
     try{
         console.log(req.body)
-        return res.send("qrcode")
+        // if(req.body.token===null||req.body.token===undefined||req.body.session===null||req.body.session===undefined) return res.send("fail")
+        const db = await client.connect();
+        let qrcode = Math.floor(Math.random()*4398046511104);
+        let code = btoa(qrcode)
+        code = code.replace(/=/g,'')
+        let pass = Math.floor(Math.random()*9999);
+
+        let checkrepeat = await db.query(`select from questionbank where question_pk = $1`,[code])
+        if(checkrepeat.rows[0]!==undefined){
+            let pk_check = false
+            while(pk_check===true){
+                random_pk = Math.floor(Math.random()*4398046511104);
+                user_pk = btoa(random_pk);
+                user_pk = user_pk.replace(/=/g,'')
+                checkrepeat = await db.query(`select from questionbank where question_pk = $1`,[code])
+                if(checkrepeat.rows[0]===undefined){
+                    checkPk = true
+                }
+            }
+        }
+        let returnArray = {code:code,pass:pass}
+
+        await db.release();
+        return res.send(returnArray)
     }catch(err){
         console.log("error on save question")
         console.log(err)
@@ -231,10 +258,51 @@ router.post("/checkgrcode",async(req,res)=>{
     }
 })
 
-router.post("/savequestion",async(req,res)=>{
+router.post("/savequestion",upload.any(),async(req,res)=>{
     try{
-        console.log(req.body)
-        return res.send("ccc")
+        if(req.body.pass===undefined||req.body.pass===null||req.body.type===undefined||req.body.type===null||req.body.qrcode===undefined||req.body.qrcode===null)
+        // if(req.body.token===null||req.body.token===undefined||req.body.session===null||req.body.session===undefined) return res.send("fail")
+        console.log(req.body.type)
+        const db = await client.connect();
+        jwt.verify(req.body.token,jwtConfig.key);
+        jwt.verify(req.body.session,jwtConfig.key);
+
+        let user_pk = req.body.token;
+        user_pk = user_pk.split(".")[1];
+        user_pk = user_pk.split(".")[0];
+        user_pk = atob(user_pk);
+        user_pk = user_pk.split('{"user_pk":"')[1];
+        user_pk = user_pk.split('","iat":')[0];
+
+        let session = req.body.session;
+        session = session.split(".")[1];
+        session = session.split(".")[0];
+        session = atob(session);
+        session = session.split('{"session":"')[1];
+        session = session.split('","iat":')[0];
+        let date = new Date();
+        const ip = req.headers['x-forwarded-for'] ||  req.connection.remoteAddress;
+
+        let checkrepeat = await db.query(`select from questionbank where question_pk = $1`,[req.body.qrcode])
+        if(checkrepeat.rows[0]!==undefined){
+            // qrcode 변경된걸로 안내해주기
+
+        }
+
+
+        // log 찍어야함
+        if(req.body.type==="vote"){
+            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_chart_type,question_date,question_ip,question_pass) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.voteChartType,date,ip,req.body.pass])
+        }
+        if(req.body.type==="wordcloud"){
+            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_chart_type,question_date,question_ip,question_pass) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.voteChartType,date,ip,req.body.pass])
+        }
+        if(req.body.type==="question"){
+            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_chart_type,question_date,question_ip,question_pass) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.voteChartType,date,ip,req.body.pass])
+        }
+
+        await db.release();
+        return res.send("success")
     }catch(err){
         console.log("error on save question")
         console.log(err)
