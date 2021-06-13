@@ -31,6 +31,16 @@ let client = new Pool ({
     maxUses: 7500
 });
 
+const aws = require("aws-sdk");
+const s3Json = fs.readFileSync(path.resolve(__dirname,"./../aws_key.json"));
+const s3Config = JSON.parse(s3Json);
+const s3 = new aws.S3({
+    accessKeyId:s3Config.access_key_id,
+    secretAccessKey:s3Config.secret_access_key,
+    region:'ap-northeast-2'
+})
+
+
 // JWT generator
 const jwt = require("jsonwebtoken");
 const jwtkey = fs.readFileSync(path.resolve(__dirname,"./../jwt_key.json"));
@@ -41,6 +51,21 @@ const setJWT = (user_pk) => {
     )
     return token;
 }
+
+const uploadtoS3 = (file,name,type) => {
+    let param ={
+        'Bucket':'wordgendb',
+        'Key':'general/ '+ name,
+        'ACL':'authenticated-read',
+        'Body':file,
+        'Content-Type': type
+    }
+    return s3.upload(param, (err,data) => {
+        if(err!==null){console.log(err);}
+        // console.log(data);
+    })
+}
+
 
 router.post("/register", async (req,res) => {
     let t1 = new Date();
@@ -289,16 +314,21 @@ router.post("/savequestion",upload.any(),async(req,res)=>{
 
         }
 
-
         // log 찍어야함
         if(req.body.type==="vote"){
             await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_chart_type,question_date,question_ip,question_pass) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.voteChartType,date,ip,req.body.pass])
         }
         if(req.body.type==="wordcloud"){
-            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_chart_type,question_date,question_ip,question_pass) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.voteChartType,date,ip,req.body.pass])
+            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_date,question_ip,question_pass) values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.wcmaxword,date,ip,req.body.pass])
         }
         if(req.body.type==="question"){
-            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_chart_type,question_date,question_ip,question_pass) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.voteChartType,date,ip,req.body.pass])
+            let key = "";
+            if(req.body.image_cnt===1){
+                key = user_pk+"#"+req.body.qrcode;
+                await uploadtoS3(req.files[0].buffer,key,req.files[0].mimetype)
+            }
+            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_longtext,question_date,question_ip,question_pass,question_image_cnt,question_image_key,question_image_type) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.longText,date,ip,req.body.pass,req.body.image_cnt,key,req.files[0].mimetype])
+
         }
 
         await db.release();

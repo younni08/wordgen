@@ -34,7 +34,7 @@ const Price = () => {
                         title="Enterprise"
                         body="월 55000원"
                         icon="xi-building xi-5x"
-                        list="Premium 요금제의 모든 혜택,+ 최대 참여자 500명,+ 연계 코드 최대 100개,+ 설문조사 솔루션 이용 가능"
+                        list="Premium 요금제의 모든 혜택,+ 최대 참여자 500명,+ 연계 코드 최대 100개,+ 다수 사용자와 공유 가능"
                     />
                 </div>
             </div>

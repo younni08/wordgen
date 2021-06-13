@@ -59,7 +59,7 @@ const Login = () => {
                 <div className="login_general_input">
                     <span>비밀번호</span>
                     <div>
-                        <input type="password" onChange={handleInput2} placeholder="너와 나의 비밀번호" />
+                        <input type="password" onChange={handleInput2} placeholder="비밀번호" />
                     </div>
                 </div>
                 <span className="login_submit" onClick={submit}>로그인</span>
