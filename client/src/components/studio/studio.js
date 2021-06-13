@@ -277,13 +277,16 @@ const Studio = () => {
         formData.append('longText',longText);
         formData.append('qrcode',qrcode);
         formData.append('pass',pass);
+        formData.append("wcmaxword",wcMaxWord)
         formData.append('token',token);
         formData.append('session',session);
+        
 
         let getImage = document.getElementById("studio_image_input1");
         if(getImage!==null){
             if(getImage.files.length!==0&&getImage.files[0]!==undefined){
                 formData.append("studioimage",getImage.files[0])
+                formData.append('image_cnt',1)
             }
         }
 
