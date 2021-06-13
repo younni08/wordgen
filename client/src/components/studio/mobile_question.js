@@ -13,7 +13,7 @@ const MobileVote = (props) => {
 
     const init = () => {
         if(props.studioimage!=="") setImage(true)
-        if(props.longText!=="") setBodyText(true)
+        if(props.longText!=="") setBodyText(props.longText)
         if(props.voteAddlevel!==0){
             setDefaultOptions(false)
         }
@@ -64,7 +64,7 @@ const MobileVote = (props) => {
         <div className="studio_mobile_body">
             <div className="mobilequestion">
                 {
-                    image?<img src={props.studioimage} alt="wordgen question" />:<img src="./pics/wordGen color.png" alt="wordgen color" />
+                    image?<img src={props.studioimage} alt="wordgen question" />:<img src="./pics/wordgencolor.png" alt="wordgen color" />
                 }
                 <div>{parse(bodytext)}</div>
             </div>

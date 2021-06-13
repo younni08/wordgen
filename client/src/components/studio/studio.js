@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import Mobileview from "./mobile"
 import ReactQuill from "react-quill";
+import QRCode from "qrcode.react"
+// var QRCode = require('qrcode.react');
 import 'react-quill/dist/quill.snow.css';
 
 const Studio = () => {
@@ -225,13 +227,14 @@ const Studio = () => {
         setStudioimageon(true)
     }
 
+    const qrimagesetting = [{width:500}]
 
     return (
         <div className="studio">
             <div>
                 <div className="studio_navi">
-                    <span>추가 메뉴</span>
-                    <span>생각 중</span>
+                    <span>요금제 변경</span>
+                    <span>내 작업실</span>
                 </div>
                 <div className="studio_main">
                     <div className="studio_level1">
@@ -387,6 +390,15 @@ const Studio = () => {
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>연계</span>
+                                                <span>최대 5개까지 가능합니다.</span>
+                                            </div>
+                                            <div className="inputwapper_singlebuttonnext" onClick={typeVoteAddList}>
+                                                <span>저장 후 다음 문제 연계하기</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     :""
                                 }
@@ -413,89 +425,145 @@ const Studio = () => {
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>연계</span>
+                                                <span>최대 5개까지 가능합니다.</span>
+                                            </div>
+                                            <div className="inputwapper_singlebuttonnext" onClick={typeVoteAddList}>
+                                                <span>저장 후 다음 문제 연계하기</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     :""
                                 }
                                 {
-                                    
+                                    typequestion?<div className="studio_menubox2">
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>주제을 적어주세요.</span>
+                                            </div>
+                                            <div className="inputwapper_text">
+                                                <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>사진을 추가할까요?</span>
+                                            </div>
+                                            <div className="inputwapper_text">
+                                                <input type="file" id="studio_inpu" onChange={readFile}/>
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>문제를 입력해주세요.</span>
+                                            </div>
+                                            <div className="inputwapper_quill">
+                                                <ReactQuill 
+                                                    onChange={handleLongText}
+                                                    modules={{
+                                                        toolbar: {
+                                                            container: [
+                                                                [{ header: [1,2,false]}],
+                                                                ['bold', 'italic', 'underline'],
+                                                                [{ color: [] }, { background: [] }]
+                                                            ]
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>옵션</span>
+                                                <span>최대 5개까지 가능합니다.</span>
+                                            </div>
+                                            <div className="inputwapper_singlebutton" onClick={typeVoteAddList}>
+                                                <span><i className="xi-plus-min xi-x" />옵션 추가하기</span>
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general_inputlist" id="studio_menubox2_general_inputlist">
+                                            <div>
+                                                <span>1.</span>
+                                                <input placeholder="첫번째 질문" onChange={handleVoteString1} />
+                                                <span id="removeVoteList1" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>2.</span>
+                                                <input placeholder="두번째 질문" onChange={handleVoteString2} />
+                                                <span id="removeVoteList2" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>3.</span>
+                                                <input placeholder="세번째 질문" onChange={handleVoteString3} />
+                                                <span id="removeVoteList3" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>4.</span>
+                                                <input placeholder="네번째 질문" onChange={handleVoteString4} />
+                                                <span id="removeVoteList4" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                            <div>
+                                                <span>5.</span>
+                                                <input placeholder="다섯번째 질문" onChange={handleVoteString5} />
+                                                <span id="removeVoteList5" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
+                                            </div>
+                                        </div>
+                                        <div className="studio_menubox2_general">
+                                            <div>
+                                                <span>연계</span>
+                                                <span>최대 5개까지 가능합니다.</span>
+                                            </div>
+                                            <div className="inputwapper_singlebuttonnext" onClick={typeVoteAddList}>
+                                                <span>저장 후 다음 문제 연계하기</span>
+                                            </div>
+                                        </div>
+                                    </div>:""
                                 }
-                                <div className="studio_menubox2">
-                                    <div className="studio_menubox2_general">
-                                        <div>
-                                            <span>주제을 적어주세요.</span>
-                                        </div>
-                                        <div className="inputwapper_text">
-                                            <input onChange={handleQuestion} placeholder="학생들에게 무엇을 물어볼까요?" />
-                                        </div>
-                                    </div>
-                                    <div className="studio_menubox2_general">
-                                        <div>
-                                            <span>사진을 추가할까요?</span>
-                                        </div>
-                                        <div className="inputwapper_text">
-                                            <input type="file" id="studio_inpu" onChange={readFile}/>
-                                        </div>
-                                    </div>
-                                    <div className="studio_menubox2_general">
-                                        <div>
-                                            <span>문제를 입력해주세요.</span>
-                                        </div>
-                                        <div className="inputwapper_quill">
-                                            <ReactQuill 
-                                                onChange={handleLongText}
-                                                modules={{
-                                                    toolbar: {
-                                                        container: [
-                                                            [{ header: [1,2,false]}],
-                                                            ['bold', 'italic', 'underline'],
-                                                            [{ color: [] }, { background: [] }],
-                                                            [{ list: 'ordered' }, { list: 'bullet' }]
-                                                        ]
-                                                    }
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="studio_menubox2_general">
-                                        <div>
-                                            <span>옵션</span>
-                                            <span>최대 5개까지 가능합니다.</span>
-                                        </div>
-                                        <div className="inputwapper_singlebutton" onClick={typeVoteAddList}>
-                                            <span><i className="xi-plus-min xi-x" />옵션 추가하기</span>
-                                        </div>
-                                    </div>
-                                    <div className="studio_menubox2_general_inputlist" id="studio_menubox2_general_inputlist">
-                                        <div>
-                                            <span>1.</span>
-                                            <input placeholder="첫번째 질문" onChange={handleVoteString1} />
-                                            <span id="removeVoteList1" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>2.</span>
-                                            <input placeholder="두번째 질문" onChange={handleVoteString2} />
-                                            <span id="removeVoteList2" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>3.</span>
-                                            <input placeholder="세번째 질문" onChange={handleVoteString3} />
-                                            <span id="removeVoteList3" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>4.</span>
-                                            <input placeholder="네번째 질문" onChange={handleVoteString4} />
-                                            <span id="removeVoteList4" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                        <div>
-                                            <span>5.</span>
-                                            <input placeholder="다섯번째 질문" onChange={handleVoteString5} />
-                                            <span id="removeVoteList5" onClick={removeVoteList}><i className="xi-close-min xi-x" /></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                             {/* studio menu 2 end */}
 
+                        </div>
+                    </div>
+                    <div className="studio_level2">
+                        <div>
+                            <span>QR 코드 생성 및 저장</span>
+                            <div>
+                                <div className="studio_qr_left">
+                                    <QRCode 
+                                        value="http://wordgen.kr/"
+                                        renderAs={"svg"}
+                                        size={300}
+                                        level={"L"}
+                                    />
+                                </div>
+                                <div className="studio_qr_right">
+                                    <div>
+                                        <span className="bigtxt">QR코드 주소값</span>
+                                        <div className="box">
+                                            <span>https://www.wordgen.kr</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span className="bigtxt">QR코드 다운로드</span>
+                                        <div className="button">
+                                            <span><i className="xi-file-download-o xi-x" /></span>
+                                            <span>QR코드 다운로드</span>
+                                        </div>
+                                        <span className="infotxt">QR 코드를 다운로드 받아 강의 자료물에 넣어주세요.</span>
+                                    </div>
+                                    <div>
+                                        <span className="bigtxt">작업 저장</span>
+                                        <div className="button">
+                                            <span><i className="xi-save xi-x" /></span>
+                                            <span>작업 저장</span>
+                                        </div>
+                                        <span className="infotxt">작업 이후 꼭 저장해주세요.</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

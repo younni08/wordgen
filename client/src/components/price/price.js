@@ -11,7 +11,7 @@ const Price = () => {
                     <span>대한민국의 모든 교육인을 응원합니다.</span>
                 </div>
                 <div className="price_level2">
-                    <Pricebox 
+                    <Pricebox
                         title="Free"
                         body="무료"
                         icon="xi-gift-o xi-4x"
@@ -27,7 +27,7 @@ const Price = () => {
                         title="Premium"
                         body="월 11000원"
                         icon="xi-school xi-5x"
-                        list="Light 요금제의 모든 혜택,+ 최대 참여자 100명,+ 연계 코드 최대 10개"
+                        list="Light 요금제의 모든 혜택,+ 최대 참여자 100명,+ 연계 코드 최대 10개,+ 고급 설정 사용 가능"
                         focus={true}
                     />
                     <Pricebox 

@@ -18,6 +18,46 @@ create table users (
     user_ip inet
 )
 
+// qrbank 
+create table qrbank(
+  id serial primary key,
+  question_pk varchar(100),
+  pass int,
+  true_address varchar(100),
+  validity boolean default true,
+  date timestamp
+)
+
+// questionbank 
+create table questionbank(
+  id serial primary key,
+  user_pk varchar(100),
+  question_pk varchar(100),
+  question_type varchar(50),
+  question_series varchar(100),
+  question_series_cnt int,
+  question_qr_access int default 0,
+  question_advance_setting boolean default false,
+  question_title varchar(1000),
+  question_image_cnt int,
+  question_image_key varchar(1000),
+  question_image_type varchar(100),
+  question_image_position varchar(100) default 'top',
+  question_user_encouter int,
+  question_choice int,
+  question_choice1_txt varchar(1000),
+  question_choice2_txt varchar(1000),
+  question_choice3_txt varchar(1000),
+  question_choice4_txt varchar(1000),
+  question_choice5_txt varchar(1000),
+  question_chart_type varchar(50),
+  question_longText varchar(5000),
+  question_date timestamp,
+  question_valid boolean default true,
+  question_state varchar(100),
+  question_ip int
+)
+
 // etc/nginx/nginx.conf
 server {
     listen 443 ssl;
