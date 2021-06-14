@@ -74,7 +74,7 @@ const Mobileview = (props) => {
                     }
                     {
                         typewordcloud?<MobileWordCloud 
-
+                            check={false}
                         />:""
                     }
                     {

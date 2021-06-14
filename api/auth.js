@@ -120,6 +120,8 @@ router.post("/register", async (req,res) => {
     }
 })
 
+
+
 router.post("/login", async (req,res)=>{
     let t1 = new Date();
     try {
@@ -327,8 +329,7 @@ router.post("/savequestion",upload.any(),async(req,res)=>{
                 key = user_pk+"#"+req.body.qrcode;
                 await uploadtoS3(req.files[0].buffer,key,req.files[0].mimetype)
             }
-            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_longtext,question_date,question_ip,question_pass,question_image_cnt,question_image_key,question_image_type) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.longText,date,ip,req.body.pass,req.body.image_cnt,key,req.files[0].mimetype])
-
+            await db.query(`insert into questionbank(user_pk,question_pk,question_type,question_series_cnt,question_title,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_longtext,question_date,question_ip,question_pass,question_image_cnt,question_image_key,question_image_type) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)`,[user_pk,req.body.qrcode,req.body.type,0,req.body.question,req.body.voteAddlevel,req.body.voteString1,req.body.voteString2,req.body.voteString3,req.body.voteString4,req.body.voteString5,req.body.longText,date,ip,req.body.pass,req.body.image_cnt,key,req.files[0].mimetype])
         }
 
         await db.release();
@@ -339,5 +340,87 @@ router.post("/savequestion",upload.any(),async(req,res)=>{
         return res.send("fail")
     }
 })
+
+// https://www.wordgen.kr/#/code?q=MzE0Nzc0MjA1MTIxNg#8902
+
+router.post("/encouterinit",async(req,res)=>{
+    try{
+        console.log(req.body)
+        let returnArray = [];
+        const db = await client.connect();
+        let result = await db.query(`select question_pk,question_pass,user_pk,question_type,question_series,question_series_cnt,question_title,question_image_cnt,question_image_key,question_image_type,question_image_position,question_user_encouter,question_choice,question_choice1_txt,question_choice2_txt,question_choice3_txt,question_choice4_txt,question_choice5_txt,question_chart_type,question_longText,question_date from questionbank where question_pk=$1 and question_pass=$2 and question_valid=true`,[req.body.code,req.body.pass])
+        if(result.rows[0]===undefined){
+            await db.release();
+            return res.send("fail")
+        }
+        if(result.rows[0].question_type==="vote"){
+            returnArray={
+                type:"vote",
+                data:{
+                    user_pk:result.rows[0].user_pk,
+                    question_pk:result.rows[0].question_pk,
+                    question_pass:result.rows[0].question_pass,
+                    question_type:result.rows[0].question_type,
+                    question_series_cnt:result.rows[0].question_series_cnt,
+                    question_title:result.rows[0].question_title,
+                    question_choice:result.rows[0].question_choice,
+                    question_choice1_txt:result.rows[0].question_choice1_txt,
+                    question_choice2_txt:result.rows[0].question_choice2_txt,
+                    question_choice3_txt:result.rows[0].question_choice3_txt,
+                    question_choice4_txt:result.rows[0].question_choice4_txt,
+                    question_choice5_txt:result.rows[0].question_choice5_txt,
+                    question_chart_type:result.rows[0].question_chart_type,
+                    question_date:result.rows[0].question_date
+                }
+            }
+        }
+        if(result.rows[0].question_type==="wordcloud"){
+            returnArray={
+                type:"wordcloud",
+                data:{
+                    user_pk:result.rows[0].user_pk,
+                    question_pk:result.rows[0].question_pk,
+                    question_pass:result.rows[0].question_pass,
+                    question_type:result.rows[0].question_type,
+                    question_series_cnt:result.rows[0].question_series_cnt,
+                    question_title:result.rows[0].question_title,
+                    question_choice:result.rows[0].question_choice,
+                    question_date:result.rows[0].question_date
+                }
+            }
+        }
+        if(result.rows[0].question_type==="question"){
+            returnArray={
+                type:"question",
+                data:{
+                    user_pk:result.rows[0].user_pk,
+                    question_pk:result.rows[0].question_pk,
+                    question_pass:result.rows[0].question_pass,
+                    question_type:result.rows[0].question_type,
+                    question_series_cnt:result.rows[0].question_series_cnt,
+                    question_title:result.rows[0].question_title,
+                    question_choice:result.rows[0].question_choice,
+                    question_choice1_txt:result.rows[0].question_choice1_txt,
+                    question_choice2_txt:result.rows[0].question_choice2_txt,
+                    question_choice3_txt:result.rows[0].question_choice3_txt,
+                    question_choice4_txt:result.rows[0].question_choice4_txt,
+                    question_choice5_txt:result.rows[0].question_choice5_txt,
+                    question_longtext:result.rows[0].question_longtext,
+                    question_image_cnt:result.rows[0].question_image_cnt,
+                    question_image_key:result.rows[0].question_image_key,
+                    question_image_type:result.rows[0].question_image_type,
+                    question_date:result.rows[0].question_date
+                }
+            }
+        }
+        await db.release();
+        return res.send(returnArray)
+    }catch(err){
+        console.log("error on encouterinit")
+        console.log(err)
+        return res.send("fail")
+    }
+})
+  
 
 module.exports = router;

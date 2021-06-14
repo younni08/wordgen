@@ -1,0 +1,50 @@
+@media (min-width: 320px) and (max-width: 1000px) {
+.navi_level1{
+    width:100%;
+}
+.navi_level1 > span:last-child{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding:10px;
+    margin:0px 10px 0px 0px;
+}
+.navi_level1 > div:nth-child(2){
+    display:none;
+}
+.navi_level1 > div:nth-child(3){
+    display:none;
+}
+.navi_level2{
+    /* height:auto; */
+    transition:all 0.3s;
+}
+.navi_level2 > div{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+}
+.navi_level2 a{
+    display:flex;
+    width:calc(100% - 20px);
+    background:rgba(60,174,163,0.3);
+    color:#000;
+    padding:10px 5px 10px 15px;;
+    border-top:1px solid #173f5f;
+    font-weight: bold;
+    font-size:0.9em;
+}
+.navi_level2 a:last-child{
+    border-bottom:1px solid #173f5f;
+}
+.index_level2{
+    overflow: hidden;
+}
+/* temp */
+.index_level2_right > span{
+    display:none;
+}
+
+
+/* end */
+}

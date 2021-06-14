@@ -1,7 +1,8 @@
 import React,{useMemo, useState} from "react";
 import Mobileview from "./mobile"
 import ReactQuill from "react-quill";
-import QRCode from "qrcode.react"
+
+import Qr from "./qrcode"
 // var QRCode = require('qrcode.react');
 import 'react-quill/dist/quill.snow.css';
 import axios from "axios";
@@ -257,7 +258,7 @@ const Studio = () => {
     
     useMemo(()=>{
         init()
-    },[window.location.href])
+    },[])
 
     const sumitquestion = async() => {
         let url = "/api/user/savequestion";
@@ -300,7 +301,17 @@ const Studio = () => {
             }
         }
         let res = await axios.post(url,formData,config)
+        if(res.data==="success") return alert("저장되었습니다.")
         console.log(res.data)
+    }
+
+    const CopyCode = () => {
+        const t = document.createElement("textarea");
+        document.body.appendChild(t);
+        t.value = "https://www.wordgen.kr/#/code?q="+passcode;
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
     }
 
     return (
@@ -605,21 +616,19 @@ const Studio = () => {
                             <span>QR 코드 생성 및 저장</span>
                             <div>
                                 <div className="studio_qr_left">
-                                    <QRCode 
-                                        value={"https://www.wordgen.kr/?q="+{passcode}}
-                                        renderAs={"svg"}
-                                        size={300}
-                                        level={"L"}
+                                    <Qr 
+                                        passcode={passcode}
                                     />
+                                    
                                 </div>
                                 <div className="studio_qr_right">
                                     <div>
                                         <div className="qr_copy">
                                             <span className="bigtxt">QR코드 주소값</span>
-                                            <span>복사</span>
+                                            <span onClick={CopyCode}>복사</span>
                                         </div>
                                         <div className="box">
-                                            <span>https://www.wordgen.kr/?q={passcode}</span>
+                                            <span>https://www.wordgen.kr/#/code?q={passcode}</span>
                                         </div>
                                     </div>
                                     <div>

@@ -6,6 +6,7 @@ import Studio from "./components/studio/studio";
 import Login from "./components/login/login";
 import Register from "./components/login/register";
 import Price from "./components/price/price"
+import Code from "./components/encouter/encouter"
 
 const Root = () => {
     return (
@@ -16,7 +17,8 @@ const Root = () => {
                 <Route exact path="/studio" component={Studio} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
-                <Route exact path="/Price" component={Price} />
+                <Route exact path="/price" component={Price} />
+                <Route exact path="/code" component={Code} />
             </Switch>
         </div>
     )
