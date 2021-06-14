@@ -95,6 +95,9 @@ const Encouter = () => {
                         />:""
                     }
                 </div>
+                <div className="encouter_level4">
+                    <span>다음</span>
+                </div>
             </div>
         </div>
     )
