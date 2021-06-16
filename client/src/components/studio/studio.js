@@ -1,6 +1,7 @@
 import React,{useMemo, useState} from "react";
 import Mobileview from "./mobile"
 import ReactQuill from "react-quill";
+import {Link} from "react-router-dom"
 
 import Qr from "./qrcode"
 // var QRCode = require('qrcode.react');
@@ -318,8 +319,12 @@ const Studio = () => {
         <div className="studio">
             <div>
                 <div className="studio_navi">
-                    <span>요금제 변경</span>
-                    <span>내 작업실</span>
+                    <Link to="/setting"  className="navi_studio">
+                        <span>설정</span>
+                    </Link>
+                    <Link to="/workshop" className="navi_worshop">
+                        <span>내 작업실</span>
+                    </Link>
                 </div>
                 <div className="studio_main">
                     <div className="studio_level1">
@@ -368,6 +373,12 @@ const Studio = () => {
                                     </div>
                                     <div className="studio_typebox">
                                         <div>
+                                            <i className="xi-camera-o xi-2x"></i>
+                                        </div>
+                                        <span>관찰일기</span>
+                                    </div>
+                                    <div className="studio_typebox">
+                                        <div>
                                             <i className="xi-paper-o xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
@@ -387,12 +398,6 @@ const Studio = () => {
                                     <div className="studio_typebox">
                                         <div>
                                             <i className="xi-movie xi-2x"></i>
-                                        </div>
-                                        <span>추가 예정</span>
-                                    </div>
-                                    <div className="studio_typebox">
-                                        <div>
-                                            <i className="xi-camera-o xi-2x"></i>
                                         </div>
                                         <span>추가 예정</span>
                                     </div>

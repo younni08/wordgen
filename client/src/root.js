@@ -7,6 +7,7 @@ import Login from "./components/login/login";
 import Register from "./components/login/register";
 import Price from "./components/price/price"
 import Code from "./components/encouter/encouter"
+import Workshop from "./components/workshop/workshop"
 
 const Root = () => {
     return (
@@ -19,6 +20,7 @@ const Root = () => {
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/price" component={Price} />
                 <Route exact path="/code" component={Code} />
+                <Route exact path="/Workshop" component={Workshop} />
             </Switch>
         </div>
     )

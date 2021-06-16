@@ -51,7 +51,6 @@ const Navi = () => {
                         <Link to="/solution"><span>솔루션</span></Link>
                         <Link to="/price"><span>가격</span></Link>
                         <Link to="/studio"><span>임시</span></Link>
-                        <Link to="/code"><span>임시2</span></Link>
                     </div>
                     {
                         login?<div><Link className="logout" to="/"  onClick={logout}>로그아웃</Link></div>:<div>
