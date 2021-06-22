@@ -1084,7 +1084,8 @@ a{
   justify-content: space-between;
   height: 50px;
   border-bottom: 1px #eaeaea solid;
-  background:#3caea3;
+  background:rgba(60,174,163,.3);
+  border-bottom:solid 1px #3caea3;
 }
 .inputbox_right > div:nth-child(1) > div:nth-child(1){
   display: flex;
